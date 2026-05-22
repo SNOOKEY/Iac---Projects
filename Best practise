@@ -1,0 +1,11 @@
+terraform-project/
+├── main.tf                   # All resource definitions
+├── variables.tf              # Declare all input variables
+├── outputs.tf                # Define what information to display after terraform apply
+├── versions.tf               # Lock Terraform and provider versions for consistency
+├── providers.tf              # Configure cloud provider settings
+├── backend.tf                # Configure where Terraform stores state files
+├── terraform.tfvars          # Actual variable values for your environment (Don't Push in GIT)
+├── terraform.tfvars.example  # Template showing what variables need values (Can Be Pushed in GitHub)
+├── .gitignore
+└── README.md
