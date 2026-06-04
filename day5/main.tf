@@ -50,3 +50,55 @@ variable bucket_names {
   description = "description"
 }
 
+output "ec2_name" {
+  value = aws_instance.example.tags["Name"]
+  description = "The name of the EC2 instance"
+}
+
+resource "aws_instance" "example" {
+  
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+ 
+ 
+tags = {
+  Name = "ex-instance"
+}
+}
+
+variable "instance_type" {
+  type        = string
+  default     = "t3.micro"
+  description = "description"
+
+
+
+validation {
+  condition     = length(var.instance_type) >= 2 && length(var.instance_type) <= 12 
+  error_message = "instance_type must be under 12 characters and more than 2 characters."
+}
+}
+
+variable "instance_type_generation"{
+  type = string 
+  description = "must be t2 or t3"
+validation{
+  condition = can (regex("^(t2|t3)\\..*$", var.instance_type_generation))
+  error_message = "instance_type_generation must be t2 or t3"
+}
+
+}
+
+locals {
+  
+    primary = ["eu-north-1","eu-west-1"]
+    secondary = ["eu-west-1","us-east-1"]
+  combined_region = concat(local.primary, local.secondary) 
+     final_region = toset(local.combined_region)
+}
+
+output "instance_region" {
+  value = aws_instance.example.region
+  description = "The region of the EC2 instance"
+  
+}
