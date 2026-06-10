@@ -35,3 +35,37 @@ data aws_subnet "example" {
       values = ["hvm"]
     }
   }          
+
+
+  data "aws_canonical_user_id" "current" {}
+
+data "aws_cloudfront_log_delivery_canonical_user_id" "example" {}
+
+resource "aws_s3_bucket" "example" {
+  bucket = "example-bucket-terraform-2024"
+}
+
+resource "aws_s3_bucket_ownership_controls" "example" {
+  bucket = aws_s3_bucket.example.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.example.id
+
+  access_control_policy {
+    grant {
+      grantee {
+        id   = data.aws_cloudfront_log_delivery_canonical_user_id.example.id
+        type = "CanonicalUser"
+      }
+      permission = "FULL_CONTROL"
+    }
+    owner {
+      id = data.aws_canonical_user_id.current.id
+    }
+  }
+  depends_on = [aws_s3_bucket_ownership_controls.example]
+}
