@@ -1,9 +1,9 @@
 variable "primary"{
-     default = "eu-north-1"
+     default = "us-east-1"
 }
 
 variable "secondary"{
-     default = "eu-west-1"
+     default = "us-west-2"
 }
 
 variable "primary_vpc_cidr" {
@@ -11,5 +11,24 @@ variable "primary_vpc_cidr" {
 }
 
 variable "secondary_vpc_cidr" {
-  default = "10.0.0.0/16"
+  default = "10.1.0.0/16"
 }
+
+variable "primary_subnet_cidr" {
+  default = "10.0.1.0/24"
+  type = string
+}
+
+variable "secondary_subnet_cidr" {
+  default = "10.1.1.0/24"
+    type = string
+}
+
+variable "instance_type" {
+  default = "t2.micro"
+type = string
+
+
+}
+
+

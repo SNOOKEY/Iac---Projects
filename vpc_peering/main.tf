@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = "us-east-1"
   alias = "secondary"
 }
 
@@ -95,7 +95,7 @@ resource "aws_route_table" "secondary_route_table" {
   provider = aws.secondary
  
   route {
-    cidr_block = "0.0.0/0"
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.secondary_igw.id
     }   
 
