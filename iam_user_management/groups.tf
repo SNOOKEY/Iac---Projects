@@ -8,8 +8,8 @@ resource "aws_iam_group" "engineers" {
   path = "/groups/"
 }
 
-resource "aws_iam_group" "managers" {
-  name = "HR"
+resource "aws_iam_group" "  Managers" {
+  name = "Managers"
   path = "/groups/"
 }
 
